@@ -1,2 +1,2 @@
-![MightGuyMightGuy8gatesGIF](https://github.com/user-attachments/assets/df45a6e8-cfd0-4c1e-bf61-86cb5936c92d)
+![GuyGuySenseiGIF](https://github.com/user-attachments/assets/2212e14c-c408-4023-9e61-406e8172a03a)
 밤가이..밤진영...
