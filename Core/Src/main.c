@@ -22,13 +22,13 @@
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
-#include "ultra.h"
-#include "motor.h"
-#include "gyro.h"
-#include <stdio.h>
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "motor.h"
+#include "gyro.h"
+#include "servo.h"
+#include "ultra.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -96,30 +96,57 @@ int main(void)
   MX_USART3_UART_Init();
   MX_I2C1_Init();
   MX_TIM5_Init();
+  MX_TIM3_Init();
   Motor_Init();
   /* USER CODE BEGIN 2 */
-  MPU6050_Initialization();
+  //MPU6050_Initialization();
   HAL_TIM_Base_Start(&htim5);
+  HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_2);
+  HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_3);
+  HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_4);
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  /*if(MPU6050_DataReady() == 1)
+	  		{
+	  			MPU6050_ProcessData(&MPU6050);
+	  			printf("%f, %f, %f\n", MPU6050.acc_x, MPU6050.acc_y, MPU6050.acc_z);
+	  			printf("%f, %f, %f\n", MPU6050.gyro_x, MPU6050.gyro_y, MPU6050.gyro_z);
+	  			printf("%d, %d, %d\n", MPU6050.acc_x_raw, MPU6050.acc_y_raw, MPU6050.acc_z_raw);
+	  			HAL_Delay(100);
+
+	  		}*/
+
+	 /* Distance();
+	  if(distance < 10)
+	  {
+
+			 __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 50);
+			 __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_2, 100);
+			 __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_3, 100);
+			 __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_4, 50);
+
+	  }
+	  else
+	  {
+
+			 __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 100);
+			 __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_2, 50);
+			 __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_3, 50);
+			 __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_4, 100);
+
+	  }*/
+
+	  Backward();
+	  HAL_Delay(3000);
+
     /* USER CODE END WHILE */
-	  if(MPU6050_DataReady() == 1)
-		{
-			MPU6050_ProcessData(&MPU6050);
-			printf("%f, %f, %f\n", MPU6050.acc_x, MPU6050.acc_y, MPU6050.acc_z);
-			printf("%f, %f, %f\n", MPU6050.gyro_x, MPU6050.gyro_y, MPU6050.gyro_z);
-			printf("%d, %d, %d\n", MPU6050.acc_x_raw, MPU6050.acc_y_raw, MPU6050.acc_z_raw);
-			HAL_Delay(100);
-
-		}
-		//자이로값 표시
-
-
-
 
     /* USER CODE BEGIN 3 */
   }

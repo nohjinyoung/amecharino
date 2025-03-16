@@ -10,7 +10,7 @@
 #include "main.h"
 #include "tim.h"
 
-#define SPEED 950
+#define SPEED 800
 
 typedef enum {
 	STOP,
