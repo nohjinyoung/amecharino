@@ -13,6 +13,7 @@
 #include "usart.h"
 
 extern float distance;
+extern float distance2;
 
 void microDelay(uint16_t us);
 void Distance();

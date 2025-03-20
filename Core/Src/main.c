@@ -97,9 +97,9 @@ int main(void)
   MX_I2C1_Init();
   MX_TIM5_Init();
   MX_TIM3_Init();
-  Motor_Init();
   /* USER CODE BEGIN 2 */
   //MPU6050_Initialization();
+  Motor_Init();
   HAL_TIM_Base_Start(&htim5);
   HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_2);
@@ -142,9 +142,14 @@ int main(void)
 			 __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_4, 100);
 
 	  }*/
-
+	  //Forward();
+	 //HAL_Delay(1000);
+	  //Backward();
+	  //HAL_Delay(1000);
 	  Backward();
-	  HAL_Delay(3000);
+
+	  //HAL_Delay(5000);
+
 
     /* USER CODE END WHILE */
 
