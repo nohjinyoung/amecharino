@@ -19,6 +19,6 @@ void microDelay(uint16_t us);
 void Distance();
 
 int _write(int file, char *ptr, int len);
-
+float GetDistance(GPIO_TypeDef* TRIG_PORT, uint16_t TRIG_PIN, GPIO_TypeDef* ECHO_PORT, uint16_t ECHO_PIN);
 
 #endif /* INC_ULTRA_H_ */

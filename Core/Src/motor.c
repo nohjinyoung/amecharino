@@ -7,7 +7,7 @@
 
 #include "motor.h"
 
-/*void Move(int controlcmd){
+void Move(int controlcmd){
 
 
 
@@ -58,7 +58,7 @@
 			Stop();
 			break;
 		}
-}*/
+}
 
 void Forward()
 {

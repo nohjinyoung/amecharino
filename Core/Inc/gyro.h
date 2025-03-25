@@ -1,6 +1,6 @@
 
 #include "main.h"
-
+#include <math.h>
 
 #define MPU6050_ADDR 0xD0
 
@@ -53,3 +53,10 @@ int MPU6050_DataReady(void);
 void MPU6050_Get_LSB_Sensitivity(uint8_t FS_SCALE_GYRO, uint8_t FS_SCALE_ACC);
 void MPU6050_DataConvert(Struct_MPU6050* mpu6050);
 void MPU6050_ProcessData(Struct_MPU6050* mpu6050);
+void MPU6050_CalculateYaw(Struct_MPU6050* mpu6050, float dt, float* yaw);
+float GetYawAngle();
+
+void AK8963_ReadData();
+
+void AK8963_Init();
+

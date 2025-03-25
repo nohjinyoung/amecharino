@@ -2,12 +2,14 @@
 #include "main.h"
 #include "i2c.h"
 #include <stdio.h>
-
+#include <math.h>
 Struct_MPU6050 MPU6050;
+#define AK8963_ADDR 0x0C << 1 // 7-bit주소로 왼쪽 쉬프트
 
 static float LSB_Sensitivity_ACC;
 static float LSB_Sensitivity_GYRO;
-
+static float yaw_angle = 0;
+int16_t mag_x, mag_y, mag_z;
 /*int _write(int file, uint8_t* p, int len)
 {
 	if(HAL_UART_Transmit(&huart3, p, len, len) == HAL_OK )
@@ -16,7 +18,37 @@ static float LSB_Sensitivity_GYRO;
 	}
 	return 0;
 }*/ //ultra.c에 있는것과는 다른 형식
+float GetYawAngle()
+{
+    float yaw;
+    yaw = atan2((float)mag_y, (float)mag_x) * 180 / M_PI;
+    if (yaw < 0) yaw += 360; // 0 ~ 360도 범위
+    return yaw;
+}
+void AK8963_ReadData()
+{
+    uint8_t buffer[7];
 
+    HAL_I2C_Mem_Read(&hi2c1, AK8963_ADDR, 0x03, I2C_MEMADD_SIZE_8BIT, buffer, 7, 100);
+
+    mag_x = (buffer[1] << 8) | buffer[0];
+    mag_y = (buffer[3] << 8) | buffer[2];
+    mag_z = (buffer[5] << 8) | buffer[4];
+}
+void AK8963_Init()
+{
+    uint8_t data;
+
+    // Power down
+    data = 0x00;
+    HAL_I2C_Mem_Write(&hi2c1, AK8963_ADDR, 0x0A, I2C_MEMADD_SIZE_8BIT, &data, 1, 100);
+    HAL_Delay(100);
+
+    // Set to continuous measurement mode 2 (100Hz)
+    data = 0x16;
+    HAL_I2C_Mem_Write(&hi2c1, AK8963_ADDR, 0x0A, I2C_MEMADD_SIZE_8BIT, &data, 1, 100);
+    HAL_Delay(100);
+}
 
 void I2C_Scan() {
     printf("Scanning I2C bus...\n");
@@ -218,7 +250,16 @@ int MPU6050_DataReady(void)
 	 */
 	return HAL_GPIO_ReadPin(MPU6050_INT_PORT, MPU6050_INT_PIN);
 }
+void MPU6050_CalculateYaw(Struct_MPU6050* mpu6050, float dt, float* yaw)
+{
+    yaw_angle += mpu6050->gyro_z * dt;
 
+    // 원하면 범위 제한 (가독성 좋게)
+    if (yaw_angle > 180.0f) yaw_angle -= 360.0f;
+    if (yaw_angle < -180.0f) yaw_angle += 360.0f;
+
+    *yaw = yaw_angle;
+}
 void MPU6050_ProcessData(Struct_MPU6050* mpu6050)
 {
 	MPU6050_Get6AxisRawData(mpu6050);

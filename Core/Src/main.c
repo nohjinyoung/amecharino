@@ -22,7 +22,7 @@
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
-
+#include <stdio.h>
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "motor.h"
@@ -99,6 +99,7 @@ int main(void)
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
   //MPU6050_Initialization();
+  //AK8963_Init(); //자력계초기화 추가
   Motor_Init();
   HAL_TIM_Base_Start(&htim5);
   HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_1);
@@ -107,21 +108,24 @@ int main(void)
   HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_4);
 
 
+
+  		   //1.5ms Pwm - Servo motor arm rotates to 90 degree
+  			   //1.5ms Pwm - Servo motor arm rotates to 90 degree
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  /*if(MPU6050_DataReady() == 1)
-	  		{
-	  			MPU6050_ProcessData(&MPU6050);
-	  			printf("%f, %f, %f\n", MPU6050.acc_x, MPU6050.acc_y, MPU6050.acc_z);
-	  			printf("%f, %f, %f\n", MPU6050.gyro_x, MPU6050.gyro_y, MPU6050.gyro_z);
-	  			printf("%d, %d, %d\n", MPU6050.acc_x_raw, MPU6050.acc_y_raw, MPU6050.acc_z_raw);
-	  			HAL_Delay(100);
 
-	  		}*/
+	  float distance1 = GetDistance(GPIOE, GPIO_PIN_2, GPIOA, GPIO_PIN_0);
+	  float distance2 = GetDistance(GPIOD, GPIO_PIN_12, GPIOD, GPIO_PIN_11);
+
+	  printf("D1: %.2f cm | D2: %.2f cm \r\n", distance1, distance2);
+	  HAL_Delay(100);
+
 
 	 /* Distance();
 	  if(distance < 10)
@@ -146,7 +150,7 @@ int main(void)
 	 //HAL_Delay(1000);
 	  //Backward();
 	  //HAL_Delay(1000);
-	  Backward();
+
 
 	  //HAL_Delay(5000);
 
