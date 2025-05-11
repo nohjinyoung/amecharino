@@ -59,6 +59,8 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define Trig_Pin GPIO_PIN_2
 #define Trig_GPIO_Port GPIOE
+#define Trig4_Pin GPIO_PIN_4
+#define Trig4_GPIO_Port GPIOF
 #define Cw2_Pin GPIO_PIN_7
 #define Cw2_GPIO_Port GPIOF
 #define Cw1_Pin GPIO_PIN_8
@@ -67,12 +69,18 @@ void Error_Handler(void);
 #define Cw3_GPIO_Port GPIOF
 #define Echo_Pin GPIO_PIN_0
 #define Echo_GPIO_Port GPIOA
+#define Trig3_Pin GPIO_PIN_2
+#define Trig3_GPIO_Port GPIOB
 #define Cw4_Pin GPIO_PIN_1
 #define Cw4_GPIO_Port GPIOG
 #define Echo2_Pin GPIO_PIN_11
 #define Echo2_GPIO_Port GPIOD
 #define Trig2_Pin GPIO_PIN_12
 #define Trig2_GPIO_Port GPIOD
+#define Echo3_Pin GPIO_PIN_13
+#define Echo3_GPIO_Port GPIOD
+#define Echo4_Pin GPIO_PIN_6
+#define Echo4_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 

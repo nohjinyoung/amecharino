@@ -10,7 +10,7 @@
 #include "main.h"
 #include "tim.h"
 
-#define SPEED 900
+#define SPEED 800
 
 typedef enum {
 	STOP,
@@ -27,8 +27,8 @@ void Forward();
 void Backward();
 void Right();
 void Left();
-void Cw();
-void Ccw();
+void Right_turn();
+void Left_turn();
 void Stop();
 void Motor_Init();
 

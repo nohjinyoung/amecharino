@@ -11,6 +11,7 @@
 #include "main.h"
 #include "tim.h"
 #include "usart.h"
+#include <stdio.h>
 
 extern float distance;
 extern float distance2;

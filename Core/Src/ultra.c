@@ -58,11 +58,17 @@ float GetDistance(GPIO_TypeDef* TRIG_PORT, uint16_t TRIG_PIN, GPIO_TypeDef* ECHO
     HAL_GPIO_WritePin(TRIG_PORT, TRIG_PIN, GPIO_PIN_RESET);
 
     // Echo 핀 올라갈 때까지 대기
-    while (HAL_GPIO_ReadPin(ECHO_PORT, ECHO_PIN) == GPIO_PIN_RESET);
+    while (HAL_GPIO_ReadPin(ECHO_PORT, ECHO_PIN) == GPIO_PIN_RESET)
+    {
+
+    }
    	 uint32_t startTime = __HAL_TIM_GET_COUNTER(&htim5);  // Echo ?��?�� ?���? ?���? 기록
 
    	 // Echo ?? LOW 감�? (초음?�� 반사 ?��?�� ?���?)
-   	 while (HAL_GPIO_ReadPin(ECHO_PORT, ECHO_PIN) == GPIO_PIN_SET);
+   	 while (HAL_GPIO_ReadPin(ECHO_PORT, ECHO_PIN) == GPIO_PIN_SET)
+   	 {
+
+   	 }
    	 uint32_t endTime = __HAL_TIM_GET_COUNTER(&htim5);
 
    	uint32_t timeElapsed = endTime - startTime;
